@@ -36,3 +36,10 @@ bouton_7.grid(row=0,column=7)
 mon_canvas.grid(row=1, column=1, rowspan=6 , columnspan=7)
 
 racine.mainloop()
+
+#test
+largeur_case = 100
+hauteur_case = 100
+for i in range(8):
+    for j in range(8):
+        canvas.create_rectangle((i*largeur_case, j*hauteur_case),((i+1)*largeur_case, (j+1)*hauteur_case), fill=color)
