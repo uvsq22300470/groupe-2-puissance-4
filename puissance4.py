@@ -5,6 +5,8 @@ racine = tk.Tk()
 racine.title("Puissance 4")
 
 def placer_jeton(x):
+    global cancel
+    cancel=x
     print(x)
 
 #def creer_grille():
