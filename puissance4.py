@@ -1,15 +1,14 @@
 import tkinter as tk
 import random as rd
+from tkinter import messagebox
 
 racine = tk.Tk()
 racine.title("Puissance 4")
 
 liste=[]
+joueur_act=0
+grille =[[None for _ in range(6)] for _ in range(7)]
 
-def placer_jeton(x):
-    global liste
-    liste.append(x)
-    print(x)
 
 
 bouton_1 = tk.Button(racine, text="1", command=lambda: placer_jeton(1), font=("helvetica", "30"))
@@ -29,7 +28,27 @@ largeur_case = CANVAS_WIDTH//7
 hauteur_case = CANVAS_HEIGHT//6
 for i in range(7):
     for j in range(6):
-        mon_canvas.create_oval((25+i*largeur_case, 25+j*hauteur_case),((i+1)*largeur_case, (j+1)*hauteur_case), fill="white")
+        mon_canvas.create_oval((25+i*largeur_case, 25+j*hauteur_case),((i+1)*largeur_case-25, (j+1)*hauteur_case-25), fill="white",outline="blue")
+
+def placer_jeton(x):
+    global joueur_act
+    colonne = x - 1  # Adapter pour la grille (de 0 à 6)
+    
+    if grille[colonne][0] is not None:
+        messagebox.showwarning("Erreur", "Cette colonne est pleine, choisissez une autre colonne")
+        return
+
+    for row in range(5, -1, -1):
+        if grille[colonne][row] is None:
+            couleur = "red" if joueur_act == 0 else "yellow"
+            mon_canvas.create_oval((25 + colonne * largeur_case, 25 + row * hauteur_case),
+                                   ((colonne + 1) * largeur_case - 25, (row + 1) * hauteur_case - 25), 
+                                   fill=couleur, outline=couleur)
+
+            grille[colonne][row] = couleur
+            joueur_act = 1 - joueur_act
+            break
+
 
 bouton_1.grid(row=0,column=2)
 bouton_2.grid(row=0,column=3)
