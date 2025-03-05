@@ -32,7 +32,7 @@ for i in range(7):
 
 def placer_jeton(x):
     global joueur_act
-    colonne = x - 1  # Adapter pour la grille (de 0 à 6)
+    colonne = x - 1  #  pour la grille (de 0 à 6)
     
     if grille[colonne][0] is not None:
         messagebox.showwarning("Erreur", "Cette colonne est pleine, choisissez une autre colonne")
@@ -46,8 +46,54 @@ def placer_jeton(x):
                                    fill=couleur, outline=couleur)
 
             grille[colonne][row] = couleur
+            if verifier_victoire(couleur):
+                messagebox.showinfo("Félicitations!", f"Le joueur {couleur} a gagné !")
+                racine.quit() 
             joueur_act = 1 - joueur_act
             break
+
+def verifier_victoire(couleur):
+    #  horizontale
+    for col in range(7):
+        for row in range(6):
+            if col < 4:  #
+                if (grille[col][row] == couleur and
+                    grille[col + 1][row] == couleur and
+                    grille[col + 2][row] == couleur and
+                    grille[col + 3][row] == couleur):
+                    return True
+
+    #  verticale
+    for col in range(7):
+        for row in range(6):
+            if row < 3:  
+                if (grille[col][row] == couleur and
+                    grille[col][row + 1] == couleur and
+                    grille[col][row + 2] == couleur and
+                    grille[col][row + 3] == couleur):
+                    return True
+
+    #  diagonale (\)
+    for col in range(7):
+        for row in range(6):
+            if col < 4 and row < 3:  
+                if (grille[col][row] == couleur and
+                    grille[col + 1][row + 1] == couleur and
+                    grille[col + 2][row + 2] == couleur and
+                    grille[col + 3][row + 3] == couleur):
+                    return True
+
+    # diagonale (/)
+    for col in range(7):
+        for row in range(6):
+            if col >= 3 and row < 3:  
+                if (grille[col][row] == couleur and
+                    grille[col - 1][row + 1] == couleur and
+                    grille[col - 2][row + 2] == couleur and
+                    grille[col - 3][row + 3] == couleur):
+                    return True
+
+    return False
 
 
 bouton_1.grid(row=0,column=2)
