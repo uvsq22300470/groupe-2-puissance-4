@@ -12,13 +12,13 @@ def placer_jeton(x):
     print(x)
 
 
-bouton_1 = tk.Button(racine,text="1",command=placer_jeton(1),font=("helvetica", "30"))
-bouton_2 = tk.Button(racine,text="2",command=placer_jeton(2),font=("helvetica", "30"))
-bouton_3 = tk.Button(racine,text="3",command=placer_jeton(3),font=("helvetica", "30"))
-bouton_4 = tk.Button(racine,text="4",command=placer_jeton(4),font=("helvetica", "30"))
-bouton_5 = tk.Button(racine,text="5",command=placer_jeton(5),font=("helvetica", "30"))
-bouton_6 = tk.Button(racine,text="6",command=placer_jeton(6),font=("helvetica", "30"))
-bouton_7 = tk.Button(racine,text="7",command=placer_jeton(7),font=("helvetica", "30"))
+bouton_1 = tk.Button(racine, text="1", command=lambda: placer_jeton(1), font=("helvetica", "30"))
+bouton_2 = tk.Button(racine, text="2", command=lambda: placer_jeton(2), font=("helvetica", "30"))
+bouton_3 = tk.Button(racine, text="3", command=lambda: placer_jeton(3), font=("helvetica", "30"))
+bouton_4 = tk.Button(racine, text="4", command=lambda: placer_jeton(4), font=("helvetica", "30"))
+bouton_5 = tk.Button(racine, text="5", command=lambda: placer_jeton(5), font=("helvetica", "30"))
+bouton_6 = tk.Button(racine, text="6", command=lambda: placer_jeton(6), font=("helvetica", "30"))
+bouton_7 = tk.Button(racine, text="7", command=lambda: placer_jeton(7), font=("helvetica", "30"))
 
 
 CANVAS_WIDTH = 700
