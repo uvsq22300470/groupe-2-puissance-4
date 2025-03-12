@@ -101,7 +101,7 @@ def verifier_victoire(couleur):
 
 def annuler_coup():
     global joueur_act
-    if len(historique_coups) == 0:  # Si aucun coup n'a été joué
+    if len(historique_coups) == 0:  
         messagebox.showwarning("Erreur", "Aucun coup à annuler")
         return
 
