@@ -51,12 +51,12 @@ def afficher_accueil():
     tk.Label(frame_pseudos, text="Nom du Joueur 1 :", font=("Helvetica", 15), fg="red", bg="#041a40").pack(pady=5)
     zone_texte_joueur1 = tk.Entry(frame_pseudos, font=("Helvetica", 15), fg="red")
     zone_texte_joueur1.pack(pady=5)
-    zone_texte_joueur1.bind("<KeyRelease>", lambda event: verifier_noms())
+    zone_texte_joueur1.bind("<KeyRelease>", lambda : verifier_noms())
 
     tk.Label(frame_pseudos, text="Nom du Joueur 2 :", font=("Helvetica", 15), fg="yellow", bg="#041a40").pack(pady=5)
     zone_texte_joueur2 = tk.Entry(frame_pseudos, font=("Helvetica", 15), fg="yellow")
     zone_texte_joueur2.pack(pady=5)
-    zone_texte_joueur2.bind("<KeyRelease>", lambda event: verifier_noms())
+    zone_texte_joueur2.bind("<KeyRelease>", lambda : verifier_noms())
 
 
     bouton_manuel= tk.Button(frame, text="guide des stratégies", command=manuel,  font=("Helvetica", 15))
