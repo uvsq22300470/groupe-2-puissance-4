@@ -17,6 +17,7 @@ bouton_5 = tk.Button(racine, text="5", command=lambda: placer_jeton(5), font=("h
 bouton_6 = tk.Button(racine, text="6", command=lambda: placer_jeton(6), font=("helvetica", "30"))
 bouton_7 = tk.Button(racine, text="7", command=lambda: placer_jeton(7), font=("helvetica", "30"))
 
+
 # les entréés des pseudo a implementer sur l'ecran d'accueil quand il sera crée :
 #supprimer frame_pseudos quand les entrées sont dans l'accueil
 frame_pseudos= tk.Frame(racine)
@@ -27,8 +28,27 @@ zone_texte_joueur1 = tk.Entry(frame_pseudos, font=("Helvetica", 15),fg="red")
 zone_texte_joueur1.pack(pady=5)
 
 tk.Label(frame_pseudos, text="nom du joueur 2:",font=("Helvetica", 15), fg="yellow").pack(pady=5)
-zone_texte_joueur1 = tk.Entry(frame_pseudos, font=("Helvetica", 15),fg="yellow")
-zone_texte_joueur1.pack(pady=5)
+zone_texte_joueur2 = tk.Entry(frame_pseudos, font=("Helvetica", 15),fg="yellow")
+zone_texte_joueur2.pack(pady=5)
+
+label_affiche_pseudos = tk.Label(frame_pseudos, text="Pseudos non définis", font=("helvetica", 15))
+label_affiche_pseudos.pack(pady=10)
+
+
+def enregistrer_pseudos():
+    #fonction pour enregistrer les pseudos avec initialisation des pseudos par defaut
+    global pseudo_j1, pseudo_j2, joueur_nom
+    pseudo_j1 = zone_texte_joueur1.get() if zone_texte_joueur1.get() else "Joueur 1"
+    pseudo_j2 = zone_texte_joueur2.get() if zone_texte_joueur2.get() else "Joueur 2"
+    joueur_nom = pseudo_j1 if joueur_act == 0 else pseudo_j2
+    label_affiche_pseudos.config(text=f"{pseudo_j1} (Rouge) vs {pseudo_j2} (Jaune)")
+    reinitialiser_jeu()
+
+
+#bouton pour valider les pseudo
+bouton_valider = tk.Button(frame_pseudos, text="Valider Pseudos", command=enregistrer_pseudos, font=("helvetica", 12))
+bouton_valider.pack(pady=5)
+
 
 CANVAS_WIDTH = 700
 CANVAS_HEIGHT = 600
@@ -44,7 +64,7 @@ for i in range(7):
 
 
 def placer_jeton(x):
-    global joueur_act
+    global joueur_act, joueur_nom
     colonne = x - 1  #  pour la grille (de 0 à 6)
     
     if grille[colonne][0] is not None:
@@ -60,12 +80,16 @@ def placer_jeton(x):
 
             grille[colonne][row] = couleur
             historique_coups.append((colonne, row, couleur))  
-            print(historique_coups)  
-            label_joueur.config(text="")  
+            print(historique_coups)
+
+            joueur_nom = pseudo_j1 if joueur_act == 0 else pseudo_j2
+            label_joueur.config(text=f"C'est a {joueur_nom} ({'rouge' if joueur_act==0 else 'jaune'}) de commencer")  
 
             if verifier_victoire(couleur):
                 messagebox.showinfo("Félicitations!", f"Le joueur {couleur} a gagné !")
+            
             joueur_act = 1 - joueur_act
+
             break
 
 def verifier_victoire(couleur):
@@ -112,7 +136,7 @@ def verifier_victoire(couleur):
     return False
 
 def annuler_coup():
-    global joueur_act
+    global joueur_act, joueur_nom
     if len(historique_coups) == 0:  
         messagebox.showwarning("Erreur", "Aucun coup à annuler")
         return
@@ -126,7 +150,11 @@ def annuler_coup():
 
     grille[colonne][ligne] = None  
 
+    #change le joueur actuel
     joueur_act = 1 - joueur_act
+    joueur_nom = pseudo_j1 if joueur_act == 0 else pseudo_j2
+
+    label_joueur.config(text=f"C'est a {joueur_nom} ({'rouge' if joueur_act==0 else 'jaune'}) de commencer")
 
 def dessiner_grille():
     for i in range(7):
@@ -137,7 +165,7 @@ def dessiner_grille():
                 fill="white", outline="blue")
 
 def reinitialiser_jeu():
-    global grille, joueur_act
+    global grille, joueur_act, joueur_nom
     joueur_act = rd.choice([0, 1])  
     
     grille = [[None for _ in range(6)] for _ in range(7)]
@@ -146,10 +174,8 @@ def reinitialiser_jeu():
    
     dessiner_grille()  
 
-    couleur = "Rouge" if joueur_act == 0 else "Jaune"
-    label_joueur.config(text=f"C'est au Joueur {joueur_act + 1} ({couleur}) de commencer")
-
-
+    joueur_nom = pseudo_j1 if joueur_act == 0 else pseudo_j2
+    label_joueur.config(text=f"C'est a {joueur_nom} ({'rouge' if joueur_act==0 else 'jaune'}) de commencer")
 
 bouton_1.grid(row=0,column=2)
 bouton_2.grid(row=0,column=3)
@@ -171,9 +197,6 @@ bouton_reset.grid(row=0, column=1, padx=10)
 
 label_joueur = tk.Label(frame_bas, text="", font=("helvetica", "12"))
 label_joueur.grid(row=0, column=2, padx=10)
-
-
-
 
 reinitialiser_jeu()  
 
