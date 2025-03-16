@@ -17,6 +17,18 @@ bouton_5 = tk.Button(racine, text="5", command=lambda: placer_jeton(5), font=("h
 bouton_6 = tk.Button(racine, text="6", command=lambda: placer_jeton(6), font=("helvetica", "30"))
 bouton_7 = tk.Button(racine, text="7", command=lambda: placer_jeton(7), font=("helvetica", "30"))
 
+# les entréés des pseudo a implementer sur l'ecran d'accueil quand il sera crée :
+#supprimer frame_pseudos quand les entrées sont dans l'accueil
+frame_pseudos= tk.Frame(racine)
+frame_pseudos.grid(row=1, column=0,rowspan= 6)
+
+tk.Label(frame_pseudos, text="nom du joueur 1:",font=("Helvetica", 15), fg="red").pack(pady=5)
+zone_texte_joueur1 = tk.Entry(frame_pseudos, font=("Helvetica", 15),fg="red")
+zone_texte_joueur1.pack(pady=5)
+
+tk.Label(frame_pseudos, text="nom du joueur 2:",font=("Helvetica", 15), fg="yellow").pack(pady=5)
+zone_texte_joueur1 = tk.Entry(frame_pseudos, font=("Helvetica", 15),fg="yellow")
+zone_texte_joueur1.pack(pady=5)
 
 CANVAS_WIDTH = 700
 CANVAS_HEIGHT = 600
