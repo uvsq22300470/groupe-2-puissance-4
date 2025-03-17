@@ -30,16 +30,17 @@ def charger_grille():
     bouton_grille6.grid(row=3,column=100)
 
 def charger_grille2(x):
-    global grille1,grille2,grille3
-    if x==1:
-        grille=grille1
-    if x==2:
-        grille=grille2
-    if x==3:
-        grille=grille3
+    global grille, grille1, grille2, grille3
+    if x == 1:
+        grille = [row[:] for row in grille1]  # Charger l'état de la grille1
+    if x == 2:
+        grille = [row[:] for row in grille2]  # Charger l'état de la grille2
+    if x == 3:
+        grille = [row[:] for row in grille3]  # Charger l'état de la grille3
     bouton_grille4.destroy()
     bouton_grille5.destroy()
     bouton_grille6.destroy()
+    dessiner_grille()  
 
 def enregistrer_grille():
     global bouton_grille1,bouton_grille2,bouton_grille3
@@ -53,16 +54,16 @@ def enregistrer_grille():
 
 
 def enregistrer_grille2(x):
-    global grille1,grille2,grille3,nom1,nom2,nom3
+    global grille,grille1,grille2,grille3,nom1,nom2,nom3
     if x==1:
-        nom1=input("donne un nom")
-        grille1=grille
+        nom1=simpledialog.askstring("Nom du joueur", "Entrez le nom de la partie :")
+        grille1=[row[:] for row in grille]
     if x==2:
-        nom2=input("donne un nom")
-        grille2=grille
+        nom2=simpledialog.askstring("Nom du joueur", "Entrez le nom de la partie :")
+        grille2=[row[:] for row in grille]
     if x==3:
-        nom3=input("donne un nom")
-        grille3=grille
+        nom3=simpledialog.askstring("Nom du joueur", "Entrez le nom de la partie :")
+        grille3=[row[:] for row in grille]
     bouton_grille1.destroy()
     bouton_grille2.destroy()
     bouton_grille3.destroy()
@@ -183,7 +184,10 @@ largeur_case = CANVAS_WIDTH//7
 hauteur_case = CANVAS_HEIGHT//6
 
 def dessiner_grille():
-    mon_canvas.delete("grille")  # Supprimer la grille existante avant de la redessiner
+    # Supprimer uniquement les cercles existants (structure de la grille)
+    mon_canvas.delete("grille")  
+    
+    # Redessiner les cases de la grille (cercles blancs)
     for i in range(7):
         for j in range(6):
             mon_canvas.create_oval(
@@ -191,6 +195,17 @@ def dessiner_grille():
                 ((i + 1) * largeur_case - 25, (j + 1) * hauteur_case - 25),
                 fill="white", outline="blue", tags="grille"
             )
+
+    # Redessiner les jetons déjà placés
+    for col in range(7):
+        for row in range(6):
+            if grille[col][row] is not None:
+                couleur = grille[col][row]
+                mon_canvas.create_oval(
+                    (col * largeur_case + 25, row * hauteur_case + 25),
+                    ((col + 1) * largeur_case - 25, (row + 1) * hauteur_case - 25),
+                    fill=couleur, outline=couleur, tags="jeton"
+                )
 
 
 def placer_jeton(x):
