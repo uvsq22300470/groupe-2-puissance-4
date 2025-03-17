@@ -117,7 +117,7 @@ def afficher_accueil():
     bouton_manuel= tk.Button(frame, text="guide des stratégies", command=manuel,  font=("Helvetica", 15))
     bouton_manuel.pack(side="bottom", pady=10)
     
-    bouton_quitter = tk.Button(frame, text="Quitter", command=accueil.quit, font=("Helvetica", 20))
+    bouton_quitter = tk.Button(frame, text="Quitter", command=accueil.destroy, font=("Helvetica", 20))
     bouton_quitter.pack(side="bottom", pady=10)
 
     accueil.mainloop()
