@@ -155,6 +155,7 @@ def jeu():
     
 def retour_accueil():
     racine.withdraw()
+    reinitialiser_jeu()
     afficher_accueil()
 
     
