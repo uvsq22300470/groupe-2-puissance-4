@@ -11,7 +11,61 @@ nom_joueur1 = ""
 nom_joueur2 = ""
 zone_texte_joueur1=""
 zone_texte_joueur2=""
+grille1=[[None for _ in range(6)] for _ in range(7)]
+grille2=[[None for _ in range(6)] for _ in range(7)]
+grille3=[[None for _ in range(6)] for _ in range(7)]
+grille =[[None for _ in range(6)] for _ in range(7)]
+nom1="partie vide"
+nom2="partie vide"
+nom3="partie vide"
 
+
+def charger_grille():
+    global bouton_grille4,bouton_grille5,bouton_grille6
+    bouton_grille4=tk.Button(racine, text=nom1, command=lambda: charger_grille2(1), font=("helvetica", "30"))
+    bouton_grille5=tk.Button(racine, text=nom2, command=lambda: charger_grille2(2), font=("helvetica", "30"))
+    bouton_grille6=tk.Button(racine, text=nom3, command=lambda: charger_grille2(3), font=("helvetica", "30"))
+    bouton_grille4.grid(row=1,column=100)
+    bouton_grille5.grid(row=2,column=100)
+    bouton_grille6.grid(row=3,column=100)
+
+def charger_grille2(x):
+    global grille1,grille2,grille3
+    if x==1:
+        grille=grille1
+    if x==2:
+        grille=grille2
+    if x==3:
+        grille=grille3
+    bouton_grille4.destroy()
+    bouton_grille5.destroy()
+    bouton_grille6.destroy()
+
+def enregistrer_grille():
+    global bouton_grille1,bouton_grille2,bouton_grille3
+    bouton_grille1=tk.Button(racine, text=nom1, command=lambda: enregistrer_grille2(1), font=("helvetica", "30"))
+    bouton_grille2=tk.Button(racine, text=nom2, command=lambda: enregistrer_grille2(2), font=("helvetica", "30"))
+    bouton_grille3=tk.Button(racine, text=nom3, command=lambda: enregistrer_grille2(3), font=("helvetica", "30"))
+    bouton_grille1.grid(row=1,column=100)
+    bouton_grille2.grid(row=2,column=100)
+    bouton_grille3.grid(row=3,column=100)
+    
+
+
+def enregistrer_grille2(x):
+    global grille1,grille2,grille3,nom1,nom2,nom3
+    if x==1:
+        nom1=input("donne un nom")
+        grille1=grille
+    if x==2:
+        nom2=input("donne un nom")
+        grille2=grille
+    if x==3:
+        nom3=input("donne un nom")
+        grille3=grille
+    bouton_grille1.destroy()
+    bouton_grille2.destroy()
+    bouton_grille3.destroy()
 
 
 def verifier_noms():
@@ -275,6 +329,10 @@ label_nom_joueur1.grid(row=2, column=0, columnspan=7, pady=10)
 
 label_nom_joueur2 = tk.Label(frame_bas, text="Joueur 2 : ", font=("Helvetica", 15), fg="yellow", bg="#041a40")
 label_nom_joueur2.grid(row=2, column=2, columnspan=7, pady=10)
+bouton_charger=tk.Button(frame_bas, text="charger", command=lambda: charger_grille(), font=("helvetica", "12"))
+bouton_enregistrer=tk.Button(frame_bas, text="enregistrer", command=lambda: enregistrer_grille(), font=("helvetica", "12"))
+bouton_charger.grid(row=0,column=4)
+bouton_enregistrer.grid(row=0, column=6)
 
 
 afficher_accueil()
@@ -282,4 +340,3 @@ afficher_accueil()
 reinitialiser_jeu()  
 
 racine.mainloop()
-
