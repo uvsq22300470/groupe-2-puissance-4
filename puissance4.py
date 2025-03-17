@@ -40,6 +40,7 @@ def charger_grille2(x):
     bouton_grille4.destroy()
     bouton_grille5.destroy()
     bouton_grille6.destroy()
+    historique_coups=[]
     dessiner_grille()  
 
 def enregistrer_grille():
