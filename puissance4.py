@@ -96,6 +96,7 @@ def jeu():
     joueur_act = 0
     grille = [[None for _ in range(6)] for _ in range(7)]
     historique_coups = []
+    dessiner_grille()
     
 def retour_accueil():
     racine.withdraw()
@@ -126,9 +127,16 @@ mon_canvas.grid(row=1, column=0, rowspan=6, columnspan=7)
 
 largeur_case = CANVAS_WIDTH//7
 hauteur_case = CANVAS_HEIGHT//6
-for i in range(7):
-    for j in range(6):
-        mon_canvas.create_oval((25+i*largeur_case, 25+j*hauteur_case),((i+1)*largeur_case-25, (j+1)*hauteur_case-25), fill="white",outline="blue")
+
+def dessiner_grille():
+    mon_canvas.delete("grille")  # Supprimer la grille existante avant de la redessiner
+    for i in range(7):
+        for j in range(6):
+            mon_canvas.create_oval(
+                (i * largeur_case + 25, j * hauteur_case + 25),
+                ((i + 1) * largeur_case - 25, (j + 1) * hauteur_case - 25),
+                fill="white", outline="blue", tags="grille"
+            )
 
 
 def placer_jeton(x):
@@ -219,13 +227,6 @@ def annuler_coup():
 
     joueur_act = 1 - joueur_act
 
-def dessiner_grille():
-    for i in range(7):
-        for j in range(6):
-            mon_canvas.create_oval(
-                (i * largeur_case + 25, j * hauteur_case + 25),
-                ((i + 1) * largeur_case - 25, (j + 1) * hauteur_case - 25),
-                fill="white", outline="blue")
 
 def reinitialiser_jeu():
     global grille, joueur_act
@@ -238,7 +239,7 @@ def reinitialiser_jeu():
     dessiner_grille()  
 
     couleur = "Rouge" if joueur_act == 0 else "Jaune"
-    label_joueur.config(text=f"C'est au Joueur {joueur_act + 1} ({couleur}) de commencer")
+    label_joueur.config(text="C'est au Joueur " + str(joueur_act + 1) + " (" + couleur + ") de commencer")
 
 
 
@@ -281,3 +282,4 @@ afficher_accueil()
 reinitialiser_jeu()  
 
 racine.mainloop()
+
