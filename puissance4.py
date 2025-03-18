@@ -215,7 +215,7 @@ def verifier_victoire(couleur):
                     grille[col][row + 3] == couleur):
                     return True
 
-    #  diagonale (/)
+    #  diagonale (\)
     for col in range(7):
         for row in range(6):
             if col < 4 and row < 3:  
@@ -225,7 +225,7 @@ def verifier_victoire(couleur):
                     grille[col + 3][row + 3] == couleur):
                     return True
 
-    # diagonale (\)
+    # diagonale (/)
     for col in range(7):
         for row in range(6):
             if col >= 3 and row < 3:  
