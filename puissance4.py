@@ -4,9 +4,6 @@ from tkinter import messagebox
 import webbrowser
 from tkinter import simpledialog
 
-def manuel():
-    webbrowser.open_new('https://ludikbazar.com/comment-maitriser-la-strategie-gagnante-du-puissance-4/')
-
 nom_joueur1 = ""
 nom_joueur2 = ""
 zone_texte_joueur1=""
@@ -19,6 +16,8 @@ nom1="partie vide"
 nom2="partie vide"
 nom3="partie vide"
 
+def manuel():
+    webbrowser.open_new('https://ludikbazar.com/comment-maitriser-la-strategie-gagnante-du-puissance-4/')
 
 def charger_grille():
     global bouton_grille4,bouton_grille5,bouton_grille6
@@ -52,8 +51,6 @@ def enregistrer_grille():
     bouton_grille2.grid(row=2,column=100)
     bouton_grille3.grid(row=3,column=100)
     
-
-
 def enregistrer_grille2(x):
     global grille,grille1,grille2,grille3,nom1,nom2,nom3
     if x==1:
@@ -69,7 +66,6 @@ def enregistrer_grille2(x):
     bouton_grille2.destroy()
     bouton_grille3.destroy()
 
-
 def verifier_noms():
     """ Vérifie si les deux noms sont remplis pour activer le bouton du jeu """
     joueur1 = zone_texte_joueur1.get().strip()
@@ -81,7 +77,7 @@ def verifier_noms():
         bouton_demarrer.config(state="disabled")
     
 def afficher_accueil():
-    global nom_joueur1, nom_joueur2, zone_texte_joueur1, zone_texte_joueur2
+    global nom_joueur1, nom_joueur2, zone_texte_joueur1, zone_texte_joueur2,bouton_demarrer
     accueil = tk.Tk()
     accueil.title("Page d'Accueil - Puissance 4")
     accueil.geometry("1000x700")
@@ -94,12 +90,9 @@ def afficher_accueil():
     texte= tk.Label(frame, text="Bienvenue dans Puissance 4", font = ("Arial",30), bg="#0b52cf", fg="#dcff00")
     texte.pack(side="top", pady=10) 
 
-
     # Bouton pour commencer la partie
     bouton_demarrer = tk.Button(frame, text="Commencer la partie", command=lambda: demarrer_partie(accueil), font=("Helvetica", 40))
     bouton_demarrer.pack(expand=True)
-    
-    
     
     frame_pseudos = tk.Frame(frame, background="#041a40")
     frame_pseudos.pack(pady=20)
@@ -114,7 +107,6 @@ def afficher_accueil():
     zone_texte_joueur2.pack(pady=5)
     zone_texte_joueur2.bind("<KeyRelease>", lambda : verifier_noms())
 
-
     bouton_manuel= tk.Button(frame, text="guide des stratégies", command=manuel,  font=("Helvetica", 15))
     bouton_manuel.pack(side="bottom", pady=10)
     
@@ -122,10 +114,7 @@ def afficher_accueil():
     bouton_quitter.pack(side="bottom", pady=10)
 
     accueil.mainloop()
-    
 
-
-    
 def demarrer_partie(accueil):
     global Joueur1, Joueur2
     Joueur1 = zone_texte_joueur1.get().strip()
@@ -138,15 +127,9 @@ def demarrer_partie(accueil):
 
         label_nom_joueur1.config(text=f"Joueur 1 : {Joueur1}")
         label_nom_joueur2.config(text=f"Joueur 2 : {Joueur2}")
-
-
     else:
         messagebox.showwarning("Erreur", "Veuillez entrer les noms des deux joueurs !")
-
-
-    
-
-    
+  
 def jeu():
     global joueur_act, grille, historique_coups
     joueur_act = 0
@@ -158,32 +141,6 @@ def retour_accueil():
     racine.withdraw()
     reinitialiser_jeu()
     afficher_accueil()
-
-    
-
-
-racine = tk.Tk()
-racine.title("Puissance 4")
-racine.withdraw()
-
-
-bouton_1 = tk.Button(racine, text="1", command=lambda: placer_jeton(1), font=("helvetica", "30"))
-bouton_2 = tk.Button(racine, text="2", command=lambda: placer_jeton(2), font=("helvetica", "30"))
-bouton_3 = tk.Button(racine, text="3", command=lambda: placer_jeton(3), font=("helvetica", "30"))
-bouton_4 = tk.Button(racine, text="4", command=lambda: placer_jeton(4), font=("helvetica", "30"))
-bouton_5 = tk.Button(racine, text="5", command=lambda: placer_jeton(5), font=("helvetica", "30"))
-bouton_6 = tk.Button(racine, text="6", command=lambda: placer_jeton(6), font=("helvetica", "30"))
-bouton_7 = tk.Button(racine, text="7", command=lambda: placer_jeton(7), font=("helvetica", "30"))
-
-
-CANVAS_WIDTH = 700
-CANVAS_HEIGHT = 600
-mon_canvas = tk.Canvas(racine, background="blue", width=CANVAS_WIDTH, height=CANVAS_HEIGHT)
-
-mon_canvas.grid(row=1, column=0, rowspan=6, columnspan=7)
-
-largeur_case = CANVAS_WIDTH//7
-hauteur_case = CANVAS_HEIGHT//6
 
 def dessiner_grille():
     # Supprimer uniquement les cercles existants (structure de la grille)
@@ -298,7 +255,6 @@ def annuler_coup():
 
     joueur_act = 1 - joueur_act
 
-
 def reinitialiser_jeu():
     global grille, joueur_act
     joueur_act = rd.choice([0, 1])  
@@ -312,8 +268,17 @@ def reinitialiser_jeu():
     couleur = "Rouge" if joueur_act == 0 else "Jaune"
     label_joueur.config(text="C'est au Joueur " + str(joueur_act + 1) + " (" + couleur + ") de commencer")
 
+racine = tk.Tk()
+racine.title("Puissance 4")
+racine.withdraw()
 
-
+bouton_1 = tk.Button(racine, text="1", command=lambda: placer_jeton(1), font=("helvetica", "30"))
+bouton_2 = tk.Button(racine, text="2", command=lambda: placer_jeton(2), font=("helvetica", "30"))
+bouton_3 = tk.Button(racine, text="3", command=lambda: placer_jeton(3), font=("helvetica", "30"))
+bouton_4 = tk.Button(racine, text="4", command=lambda: placer_jeton(4), font=("helvetica", "30"))
+bouton_5 = tk.Button(racine, text="5", command=lambda: placer_jeton(5), font=("helvetica", "30"))
+bouton_6 = tk.Button(racine, text="6", command=lambda: placer_jeton(6), font=("helvetica", "30"))
+bouton_7 = tk.Button(racine, text="7", command=lambda: placer_jeton(7), font=("helvetica", "30"))
 bouton_1.grid(row=0,column=2)
 bouton_2.grid(row=0,column=3)
 bouton_3.grid(row=0,column=4)
@@ -321,7 +286,14 @@ bouton_4.grid(row=0,column=5)
 bouton_5.grid(row=0,column=6)
 bouton_6.grid(row=0,column=7)
 bouton_7.grid(row=0,column=8)
+
+CANVAS_WIDTH = 700
+CANVAS_HEIGHT = 600
+mon_canvas = tk.Canvas(racine, background="blue", width=CANVAS_WIDTH, height=CANVAS_HEIGHT)
 mon_canvas.grid(row=1, column=2, rowspan=6 , columnspan=7)
+
+largeur_case = CANVAS_WIDTH//7
+hauteur_case = CANVAS_HEIGHT//6
 
 frame_bas = tk.Frame(racine)  
 frame_bas.grid(row=7, column=2, columnspan=7, pady=10)  
@@ -351,9 +323,6 @@ bouton_enregistrer=tk.Button(frame_bas, text="enregistrer", command=lambda: enre
 bouton_charger.grid(row=0,column=4)
 bouton_enregistrer.grid(row=0, column=6)
 
-
 afficher_accueil()
-
 reinitialiser_jeu()  
-
 racine.mainloop()
