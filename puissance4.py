@@ -172,8 +172,7 @@ def placer_jeton(x):
     colonne = x - 1  #  pour la grille (de 0 à 6)
     
     if grille[colonne][0] is not None:
-        messagebox.showwarning("Erreur", "Cette colonne est pleine, choisissez une autre colonne")
-        return
+        return messagebox.showwarning("Erreur", "Cette colonne est pleine, choisissez une autre colonne")
 
     for row in range(5, -1, -1):
         if grille[colonne][row] is None:
