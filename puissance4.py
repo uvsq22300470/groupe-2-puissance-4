@@ -318,9 +318,11 @@ label_nom_joueur1.grid(row=2, column=0, columnspan=7, pady=10)
 
 label_nom_joueur2 = tk.Label(frame_bas, text="Joueur 2 : ", font=("Helvetica", 15), fg="yellow", bg="#041a40")
 label_nom_joueur2.grid(row=2, column=2, columnspan=7, pady=10)
+
 bouton_charger=tk.Button(frame_bas, text="charger", command=lambda: charger_grille(), font=("helvetica", "12"))
-bouton_enregistrer=tk.Button(frame_bas, text="enregistrer", command=lambda: enregistrer_grille(), font=("helvetica", "12"))
 bouton_charger.grid(row=0,column=4)
+
+bouton_enregistrer=tk.Button(frame_bas, text="enregistrer", command=lambda: enregistrer_grille(), font=("helvetica", "12"))
 bouton_enregistrer.grid(row=0, column=6)
 
 afficher_accueil()
