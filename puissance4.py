@@ -327,3 +327,5 @@ bouton_enregistrer.grid(row=0, column=6)
 afficher_accueil()
 reinitialiser_jeu()  
 racine.mainloop()
+
+print("hello")
