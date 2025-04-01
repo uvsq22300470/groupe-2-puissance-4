@@ -328,4 +328,4 @@ afficher_accueil()
 reinitialiser_jeu()  
 racine.mainloop()
 
-print("hello")
+print("helloo")
