@@ -188,9 +188,16 @@ def placer_jeton(x):
 
             if verifier_victoire(couleur):
                 if couleur == "red":
-                    messagebox.showinfo("Félicitations!", f"Bravo {Joueur1}, tu a gagné !")
+                    messagebox.showinfo("Félicitations!", f"Bravo {Joueur1}, tu as gagné !")
                 else : 
-                    messagebox.showinfo("Félicitations!", f"Bravo {Joueur2} tu a gagné !")
+                    messagebox.showinfo("Félicitations!", f"Bravo {Joueur2}, tu as gagné !")
+                return  # on sort ici si y’a un gagnant
+
+            # Ajoute cette vérification juste après la victoire
+            if all(grille[c][0] is not None for c in range(7)):
+                messagebox.showinfo("Match nul", "La partie est terminée sans gagnant !")
+                return
+
             joueur_act = 1 - joueur_act
             break
 
