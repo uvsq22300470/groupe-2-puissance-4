@@ -278,20 +278,10 @@ racine = tk.Tk()
 racine.title("Puissance 4")
 racine.withdraw()
 
-bouton_1 = tk.Button(racine, text="1", command=lambda: placer_jeton(1), font=("helvetica", "30"))
-bouton_2 = tk.Button(racine, text="2", command=lambda: placer_jeton(2), font=("helvetica", "30"))
-bouton_3 = tk.Button(racine, text="3", command=lambda: placer_jeton(3), font=("helvetica", "30"))
-bouton_4 = tk.Button(racine, text="4", command=lambda: placer_jeton(4), font=("helvetica", "30"))
-bouton_5 = tk.Button(racine, text="5", command=lambda: placer_jeton(5), font=("helvetica", "30"))
-bouton_6 = tk.Button(racine, text="6", command=lambda: placer_jeton(6), font=("helvetica", "30"))
-bouton_7 = tk.Button(racine, text="7", command=lambda: placer_jeton(7), font=("helvetica", "30"))
-bouton_1.grid(row=0,column=2)
-bouton_2.grid(row=0,column=3)
-bouton_3.grid(row=0,column=4)
-bouton_4.grid(row=0,column=5)
-bouton_5.grid(row=0,column=6)
-bouton_6.grid(row=0,column=7)
-bouton_7.grid(row=0,column=8)
+def cree_bouton(n_colonnes):
+    for i in range(n_colonnes)
+        bouton = tk.button(racine, text=str(i+1), command=lambda x=i+1: placer_jeton(x), font=("helvetica", "30"))
+        bouton.grid(row=0, column=i+2, padx=5, pady=5)
 
 CANVAS_WIDTH = 700
 CANVAS_HEIGHT = 600
