@@ -343,7 +343,6 @@ print("hellooo")
 
 
 
-
 def modifier_taille_grille(n_colonnes, n_lignes):
     
     global grille, largeur_case, hauteur_case, CANVAS_WIDTH, CANVAS_HEIGHT
