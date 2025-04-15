@@ -334,3 +334,32 @@ bouton_enregistrer.grid(row=0, column=6)
 afficher_accueil()
 reinitialiser_jeu()  
 racine.mainloop()
+
+
+
+
+
+
+
+
+
+# debut modification apres le premier controle 
+
+
+
+
+
+
+def modifier_taille_grille(n_colonnes, n_lignes):
+    
+    global grille, largeur_case, hauteur_case, CANVAS_WIDTH, CANVAS_HEIGHT
+   
+    CANVAS_WIDTH = n_colonnes * 100  
+    CANVAS_HEIGHT = n_lignes * 100   
+   
+    grille = [[None for _ in range(n_lignes)] for _ in range(n_colonnes)]
+    largeur_case = CANVAS_WIDTH // n_colonnes
+    hauteur_case = CANVAS_HEIGHT // n_lignes
+   
+    mon_canvas.config(width=CANVAS_WIDTH, height=CANVAS_HEIGHT)
+    dessiner_grille()
