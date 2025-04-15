@@ -335,3 +335,32 @@ afficher_accueil()
 reinitialiser_jeu()  
 racine.mainloop()
 print("hellooo")
+
+
+
+# debut modification apres le premier controle 
+
+
+
+
+
+
+def modifier_taille_grille(n_colonnes, n_lignes):
+    
+    global grille, largeur_case, hauteur_case, CANVAS_WIDTH, CANVAS_HEIGHT
+   
+    CANVAS_WIDTH = n_colonnes * 100  
+    CANVAS_HEIGHT = n_lignes * 100   
+   
+    grille = [[None for _ in range(n_lignes)] for _ in range(n_colonnes)]
+    largeur_case = CANVAS_WIDTH // n_colonnes
+    hauteur_case = CANVAS_HEIGHT // n_lignes
+   
+    mon_canvas.config(width=CANVAS_WIDTH, height=CANVAS_HEIGHT)
+    dessiner_grille()
+
+
+def cree_bouton(n_colonnes):
+    for i in range(n_colonnes)
+        bouton = tk.button(racine, text=str(i+1), command=lambda x=i+1: placer_jeton(x), font=("helvetica", "30"))
+        bouton.grid(row=0, column=i+2, padx=5, pady=5)
