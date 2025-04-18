@@ -327,12 +327,6 @@ racine.mainloop()
 
 
 
-
-
-
-
-
-
 # debut modification apres le premier controle 
 
 
