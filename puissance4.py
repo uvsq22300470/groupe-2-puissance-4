@@ -15,6 +15,10 @@ grille =[[None for _ in range(6)] for _ in range(7)]
 nom1="partie vide"
 nom2="partie vide"
 nom3="partie vide"
+manches_joueur1 = 0  # 🟡 Nombre de manches gagnées par le joueur 1
+manches_joueur2 = 0  # 🟡 Nombre de manches gagnées par le joueur 2
+nb_manches_gagnantes = 3  # 🟡 Nombre de manches à gagner pour remporter le set
+
 
 def manuel():
     webbrowser.open_new('https://ludikbazar.com/comment-maitriser-la-strategie-gagnante-du-puissance-4/')
@@ -75,45 +79,60 @@ def verifier_noms():
         bouton_demarrer.config(state="normal")
     else:
         bouton_demarrer.config(state="disabled")
-    
+
+def demander_nb_manches():
+    global nb_manches_gagnantes
+    nb = simpledialog.askinteger("Nombre de manches", "Combien de manches gagnantes pour gagner le set ?", minvalue=1, maxvalue=10)
+    if nb:
+        nb_manches_gagnantes = nb    
+
 def afficher_accueil():
-    global nom_joueur1, nom_joueur2, zone_texte_joueur1, zone_texte_joueur2,bouton_demarrer
+    global nom_joueur1, nom_joueur2, zone_texte_joueur1, zone_texte_joueur2, bouton_demarrer
     accueil = tk.Tk()
     accueil.title("Page d'Accueil - Puissance 4")
     accueil.geometry("1000x700")
-    accueil.minsize(1000,700)
-    accueil.config(background="#041a40")
-    
-    frame= tk.Frame(accueil, background="#041a40")
+    accueil.minsize(1000, 700)
+    accueil.config(background="#3c6175")
+
+    frame = tk.Frame(accueil, background="#3c6175")
     frame.pack(fill="both", expand=True)
-    
-    texte= tk.Label(frame, text="Bienvenue dans Puissance 4", font = ("Arial",30), bg="#0b52cf", fg="#dcff00")
-    texte.pack(side="top", pady=10) 
+
+    texte = tk.Label(frame, text="Bienvenue dans Puissance 4", font=("Impact", 45), bg="#3c6175", fg="black")
+    texte.pack(side="top", pady=10)
+
+    frame_pseudos = tk.Frame(frame, background="#3c6175")
+    frame_pseudos.pack(pady=60)  # Un peu plus d'espace pour décaler les champs de texte
+
+    # Label pour le joueur 1
+    tk.Label(frame_pseudos, text="Nom du Joueur 1 :", font=("Comic Sans MS", 15, "bold"), fg="indian red", bg="#3c6175").pack(pady=5)
+    zone_texte_joueur1 = tk.Entry(frame_pseudos, font=("Comic Sans MS", 15, "bold"), fg="black")  # Texte en noir
+    zone_texte_joueur1.pack(pady=1)
+    zone_texte_joueur1.bind("<KeyRelease>", lambda: verifier_noms())
+
+    # Label pour le joueur 2
+    tk.Label(frame_pseudos, text="Nom du Joueur 2 :", font=("Comic Sans MS", 15, "bold"), fg="goldenrod", bg="#3c6175").pack(pady=5)
+    zone_texte_joueur2 = tk.Entry(frame_pseudos, font=("Comic Sans MS", 15, "bold"), fg="black")  # Texte en noir
+    zone_texte_joueur2.pack(pady=1)
+    zone_texte_joueur2.bind("<KeyRelease>", lambda: verifier_noms())
 
     # Bouton pour commencer la partie
-    bouton_demarrer = tk.Button(frame, text="Commencer la partie", command=lambda: demarrer_partie(accueil), font=("Helvetica", 40))
-    bouton_demarrer.pack(expand=True)
-    
-    frame_pseudos = tk.Frame(frame, background="#041a40")
-    frame_pseudos.pack(pady=20)
+    bouton_demarrer = tk.Button(frame, text="Commencer la partie", command=lambda: demarrer_partie(accueil), font=("Helvetica", 35))
+    bouton_demarrer.pack(expand=True, pady=10)
 
-    tk.Label(frame_pseudos, text="Nom du Joueur 1 :", font=("Helvetica", 15), fg="red", bg="#041a40").pack(pady=5)
-    zone_texte_joueur1 = tk.Entry(frame_pseudos, font=("Helvetica", 15), fg="red")
-    zone_texte_joueur1.pack(pady=5)
-    zone_texte_joueur1.bind("<KeyRelease>", lambda : verifier_noms())
+    # Bouton pour définir les manches gagnantes
+    bouton_set = tk.Button(frame, text="Définir les manches gagnantes", command=demander_nb_manches, font=("Helvetica", 15))
+    bouton_set.pack(pady=50)
 
-    tk.Label(frame_pseudos, text="Nom du Joueur 2 :", font=("Helvetica", 15), fg="yellow", bg="#041a40").pack(pady=5)
-    zone_texte_joueur2 = tk.Entry(frame_pseudos, font=("Helvetica", 15), fg="yellow")
-    zone_texte_joueur2.pack(pady=5)
-    zone_texte_joueur2.bind("<KeyRelease>", lambda : verifier_noms())
+    # Le bouton guide des stratégies (déplacé)
+    bouton_manuel = tk.Button(frame, text="guide des stratégies", command=manuel, font=("Helvetica", 15))
+    bouton_manuel.pack(side="left", padx=10, pady=10)  # Place à gauche
 
-    bouton_manuel= tk.Button(frame, text="guide des stratégies", command=manuel,  font=("Helvetica", 15))
-    bouton_manuel.pack(side="bottom", pady=10)
-    
+    # Le bouton Quitter (placé en bas à droite)
     bouton_quitter = tk.Button(frame, text="Quitter", command=accueil.destroy, font=("Helvetica", 20))
-    bouton_quitter.pack(side="bottom", pady=10)
+    bouton_quitter.pack(side="right", anchor="s", padx=10, pady=10)  # Bas droit
 
     accueil.mainloop()
+
 
 def demarrer_partie(accueil):
     global Joueur1, Joueur2
@@ -168,8 +187,8 @@ def dessiner_grille():
 
 
 def placer_jeton(x):
-    global joueur_act
-    colonne = x - 1  #  pour la grille (de 0 à 6)
+    global joueur_act, manches_joueur1, manches_joueur2
+    colonne = x - 1  # pour la grille (de 0 à 6)
     
     if grille[colonne][0] is not None:
         return messagebox.showwarning("Erreur", "Cette colonne est pleine, choisissez une autre colonne")
@@ -188,18 +207,38 @@ def placer_jeton(x):
 
             if verifier_victoire(couleur):
                 if couleur == "red":
-                    messagebox.showinfo("Félicitations!", f"Bravo {Joueur1}, tu as gagné !")
-                else : 
-                    messagebox.showinfo("Félicitations!", f"Bravo {Joueur2}, tu as gagné !")
-                return  # on sort ici si y’a un gagnant
+                    messagebox.showinfo("Félicitations!", "Bravo " + Joueur1 + ", tu as gagné !")
+                    manches_joueur1 += 1
+                else: 
+                    messagebox.showinfo("Félicitations!", "Bravo " + Joueur2 + ", tu as gagné !")
+                    manches_joueur2 += 1
 
-            # Ajoute cette vérification juste après la victoire
+                if manches_joueur1 == nb_manches_gagnantes:
+                    messagebox.showinfo("Victoire du Set", Joueur1 + " remporte le set avec " + str(manches_joueur1) + " manches gagnées !")
+                    manches_joueur1 = 0
+                    manches_joueur2 = 0
+                    retour_accueil()
+                    return
+
+                if manches_joueur2 == nb_manches_gagnantes:
+                    messagebox.showinfo("Victoire du Set", Joueur2 + " remporte le set avec " + str(manches_joueur2) + " manches gagnées !")
+                    manches_joueur1 = 0
+                    manches_joueur2 = 0
+                    retour_accueil()
+                    return
+
+                reinitialiser_jeu()
+                return
+
             if all(grille[c][0] is not None for c in range(7)):
                 messagebox.showinfo("Match nul", "La partie est terminée sans gagnant !")
+                reinitialiser_jeu()
                 return
 
             joueur_act = 1 - joueur_act
             break
+
+
 
 def verifier_victoire(couleur):
     #  horizontale
@@ -273,6 +312,7 @@ def reinitialiser_jeu():
 
     couleur = "Rouge" if joueur_act == 0 else "Jaune"
     label_joueur.config(text="C'est au Joueur " + str(joueur_act + 1) + " (" + couleur + ") de commencer")
+    label_joueur.config(text=Joueur1 + " : " + str(manches_joueur1) + " | " + Joueur2 + " : " + str(manches_joueur2))
 
 racine = tk.Tk()
 racine.title("Puissance 4")
