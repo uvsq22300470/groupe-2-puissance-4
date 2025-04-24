@@ -178,8 +178,8 @@ def dessiner_grille():
     mon_canvas.delete("grille")  
     
     # Redessiner les cases de la grille (cercles blancs)
-    for i in range(7):
-        for j in range(6):
+    for i in range(nb_colonnes):
+        for j in range(nb_lignes):
             mon_canvas.create_oval(
                 (i * largeur_case + 25, j * hauteur_case + 25),
                 ((i + 1) * largeur_case - 25, (j + 1) * hauteur_case - 25),
@@ -187,8 +187,8 @@ def dessiner_grille():
             )
 
     # Redessiner les jetons déjà placés
-    for col in range(7):
-        for row in range(6):
+    for col in range(nb_colonnes):
+        for row in range(nb_lignes):
             if grille[col][row] is not None:
                 couleur = grille[col][row]
                 mon_canvas.create_oval(
@@ -242,7 +242,7 @@ def placer_jeton(x):
                 reinitialiser_jeu()
                 return
 
-            if all(grille[c][0] is not None for c in range(7)):
+            if all(grille[c][0] is not None for c in range(nb_colonnes)):
                 messagebox.showinfo("Match nul", "La partie est terminée sans gagnant !")
                 reinitialiser_jeu()
                 return
@@ -340,7 +340,7 @@ def reinitialiser_jeu():
     global grille, joueur_act
     joueur_act = rd.choice([0, 1])  
     
-    grille = [[None for _ in range(6)] for _ in range(7)]
+    grille = [[None for _ in range(nb_lignes)] for _ in range(nb_colonnes)]
     
     mon_canvas.delete("jeton")
    
