@@ -134,6 +134,10 @@ def afficher_accueil():
     # Le bouton Quitter (placé en bas à droite)
     bouton_quitter = tk.Button(frame, text="Quitter", command=accueil.destroy, font=("Helvetica", 20))
     bouton_quitter.pack(side="right", anchor="s", padx=10, pady=10)  # Bas droit
+    
+    #  bouton pour changer  les dimensions de la grille
+    bouton_dimensions = tk.Button(frame, text="Changer dimensions", command=choisir_dimensions, font=("Helvetica", 15))
+    bouton_dimensions.pack(pady=10) 
 
     accueil.mainloop()
 
