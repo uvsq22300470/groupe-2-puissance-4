@@ -18,6 +18,10 @@ nom3="partie vide"
 manches_joueur1 = 0  # 🟡 Nombre de manches gagnées par le joueur 1
 manches_joueur2 = 0  # 🟡 Nombre de manches gagnées par le joueur 2
 nb_manches_gagnantes = 3  # 🟡 Nombre de manches à gagner pour remporter le set
+nb_colonnes = 7 #
+nb_lignes = 6 #
+CANVAS_WIDTH = 700
+CANVAS_HEIGHT = 600
 
 
 def manuel():
@@ -333,8 +337,7 @@ bouton_5.grid(row=0,column=6)
 bouton_6.grid(row=0,column=7)
 bouton_7.grid(row=0,column=8)
 
-CANVAS_WIDTH = 700
-CANVAS_HEIGHT = 600
+
 mon_canvas = tk.Canvas(racine, background="blue", width=CANVAS_WIDTH, height=CANVAS_HEIGHT)
 mon_canvas.grid(row=1, column=2, rowspan=6 , columnspan=7)
 
