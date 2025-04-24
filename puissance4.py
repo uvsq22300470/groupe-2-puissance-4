@@ -308,6 +308,30 @@ def annuler_coup():
 
     joueur_act = 1 - joueur_act
 
+def creer_boutons_colonnes():
+    # Supprimer les anciens boutons
+    for widget in racine.grid_slaves(row=0):
+        widget.destroy()
+
+    # Calculer le décalage pour chaque nombre de colonnes
+    for i in range(nb_colonnes):
+        bouton = tk.Button(racine, text=str(i+1), command=lambda x=i+1: placer_jeton(x), font=("helvetica", "20"))
+
+        if nb_colonnes == 4:
+            bouton.grid(row=0, column=i+3)
+        elif nb_colonnes == 5:
+            bouton.grid(row=0, column=i+3)
+        elif nb_colonnes == 6:
+            bouton.grid(row=0, column=i+3)
+        elif nb_colonnes == 7:
+            bouton.grid(row=0, column=i+2)
+        elif nb_colonnes == 8:
+            bouton.grid(row=0, column=i+1)
+        elif nb_colonnes == 9:
+            bouton.grid(row=0, column=i)
+        elif nb_colonnes == 10:
+            bouton.grid(row=0, column=i)
+
 def reinitialiser_jeu():
     global grille, joueur_act
     joueur_act = rd.choice([0, 1])  
@@ -326,24 +350,10 @@ racine = tk.Tk()
 racine.title("Puissance 4")
 racine.withdraw()
 
-bouton_1 = tk.Button(racine, text="1", command=lambda: placer_jeton(1), font=("helvetica", "30"))
-bouton_2 = tk.Button(racine, text="2", command=lambda: placer_jeton(2), font=("helvetica", "30"))
-bouton_3 = tk.Button(racine, text="3", command=lambda: placer_jeton(3), font=("helvetica", "30"))
-bouton_4 = tk.Button(racine, text="4", command=lambda: placer_jeton(4), font=("helvetica", "30"))
-bouton_5 = tk.Button(racine, text="5", command=lambda: placer_jeton(5), font=("helvetica", "30"))
-bouton_6 = tk.Button(racine, text="6", command=lambda: placer_jeton(6), font=("helvetica", "30"))
-bouton_7 = tk.Button(racine, text="7", command=lambda: placer_jeton(7), font=("helvetica", "30"))
-bouton_1.grid(row=0,column=2)
-bouton_2.grid(row=0,column=3)
-bouton_3.grid(row=0,column=4)
-bouton_4.grid(row=0,column=5)
-bouton_5.grid(row=0,column=6)
-bouton_6.grid(row=0,column=7)
-bouton_7.grid(row=0,column=8)
 
+mon_canvas = tk.Canvas(racine, width=CANVAS_WIDTH, height=CANVAS_HEIGHT, bg="blue")
+mon_canvas.grid(row=1, column=0, columnspan=20)
 
-mon_canvas = tk.Canvas(racine, background="blue", width=CANVAS_WIDTH, height=CANVAS_HEIGHT)
-mon_canvas.grid(row=1, column=2, rowspan=6 , columnspan=7)
 
 largeur_case = CANVAS_WIDTH//7
 hauteur_case = CANVAS_HEIGHT//6
