@@ -134,7 +134,7 @@ def afficher_accueil():
     # Le bouton Quitter (placé en bas à droite)
     bouton_quitter = tk.Button(frame, text="Quitter", command=accueil.destroy, font=("Helvetica", 20))
     bouton_quitter.pack(side="right", anchor="s", padx=10, pady=10)  # Bas droit
-    
+
     #  bouton pour changer  les dimensions de la grille
     bouton_dimensions = tk.Button(frame, text="Changer dimensions", command=choisir_dimensions, font=("Helvetica", 15))
     bouton_dimensions.pack(pady=10) 
@@ -349,10 +349,35 @@ def reinitialiser_jeu():
     couleur = "Rouge" if joueur_act == 0 else "Jaune"
     label_joueur.config(text="C'est au Joueur " + str(joueur_act + 1) + " (" + couleur + ") de commencer")
     label_joueur.config(text=Joueur1 + " : " + str(manches_joueur1) + " | " + Joueur2 + " : " + str(manches_joueur2))
+def choisir_dimensions():
+    global nb_colonnes, nb_lignes, largeur_case, hauteur_case, grille
+
+    # Demander à l'utilisateur les dimensions
+    colonnes = simpledialog.askinteger("Colonnes", "Entrez le nombre de colonnes (minimum 4) :", minvalue=4, maxvalue=10)
+    lignes = simpledialog.askinteger("Lignes", "Entrez le nombre de lignes (minimum 4) :", minvalue=4, maxvalue=10)
+
+    if colonnes and lignes:
+        nb_colonnes = colonnes
+        nb_lignes = lignes
+
+        # Redimensionner la grille
+        grille = [[None for _ in range(nb_lignes)] for _ in range(nb_colonnes)]
+
+        # Recalculer la taille des cases
+        largeur_case = CANVAS_WIDTH // nb_colonnes
+        hauteur_case = CANVAS_HEIGHT // nb_lignes
+
+        # Réinitialiser le canvas et les boutons
+        creer_boutons_colonnes()
+        dessiner_grille()
 
 racine = tk.Tk()
 racine.title("Puissance 4")
 racine.withdraw()
+creer_boutons_colonnes()
+
+CANVAS_WIDTH = 700
+CANVAS_HEIGHT = 600
 
 
 mon_canvas = tk.Canvas(racine, width=CANVAS_WIDTH, height=CANVAS_HEIGHT, bg="blue")
