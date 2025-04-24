@@ -156,7 +156,7 @@ def demarrer_partie(accueil):
 def jeu():
     global joueur_act, grille, historique_coups
     joueur_act = 0
-    grille = [[None for _ in range(6)] for _ in range(7)]
+    grille = [[None for _ in range(nb_lignes)] for _ in range(nb_colonnes)] #
     historique_coups = []
     dessiner_grille()
     
@@ -167,6 +167,10 @@ def retour_accueil():
 
 def dessiner_grille():
     # Supprimer uniquement les cercles existants (structure de la grille)
+    global largeur_case, hauteur_case
+    largeur_case = CANVAS_WIDTH / nb_colonnes
+    hauteur_case = CANVAS_HEIGHT / nb_lignes
+    
     mon_canvas.delete("grille")  
     
     # Redessiner les cases de la grille (cercles blancs)
@@ -197,7 +201,7 @@ def placer_jeton(x):
     if grille[colonne][0] is not None:
         return messagebox.showwarning("Erreur", "Cette colonne est pleine, choisissez une autre colonne")
 
-    for row in range(5, -1, -1):
+    for row in range(nb_lignes - 1, -1, -1):
         if grille[colonne][row] is None:
             couleur = "red" if joueur_act == 0 else "yellow"
             mon_canvas.create_oval((25 + colonne * largeur_case, 25 + row * hauteur_case),
@@ -246,9 +250,9 @@ def placer_jeton(x):
 
 def verifier_victoire(couleur):
     #  horizontale
-    for col in range(7):
-        for row in range(6):
-            if col < 4:  #
+    for col in range(nb_colonnes):
+        for row in range(nb_lignes):
+            if col <= nb_colonnes - 4: 
                 if (grille[col][row] == couleur and
                     grille[col + 1][row] == couleur and
                     grille[col + 2][row] == couleur and
@@ -256,9 +260,9 @@ def verifier_victoire(couleur):
                     return True
 
     #  verticale
-    for col in range(7):
-        for row in range(6):
-            if row < 3:  
+    for col in range(nb_colonnes):
+        for row in range(nb_lignes):
+            if row <= nb_lignes - 4:  
                 if (grille[col][row] == couleur and
                     grille[col][row + 1] == couleur and
                     grille[col][row + 2] == couleur and
@@ -266,9 +270,9 @@ def verifier_victoire(couleur):
                     return True
 
     #  diagonale (\)
-    for col in range(7):
-        for row in range(6):
-            if col < 4 and row < 3:  
+    for col in range(nb_colonnes):
+        for row in range(nb_lignes):
+            if col <= nb_colonnes - 4 and row <= nb_lignes - 4:   
                 if (grille[col][row] == couleur and
                     grille[col + 1][row + 1] == couleur and
                     grille[col + 2][row + 2] == couleur and
@@ -276,9 +280,9 @@ def verifier_victoire(couleur):
                     return True
 
     # diagonale (/)
-    for col in range(7):
-        for row in range(6):
-            if col >= 3 and row < 3:  
+    for col in range(nb_colonnes):
+        for row in range(nb_lignes):
+            if col >= 3 and row <= nb_lignes - 4: 
                 if (grille[col][row] == couleur and
                     grille[col - 1][row + 1] == couleur and
                     grille[col - 2][row + 2] == couleur and
