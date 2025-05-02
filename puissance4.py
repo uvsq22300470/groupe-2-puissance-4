@@ -421,3 +421,4 @@ afficher_accueil()
 reinitialiser_jeu()  
 
 racine.mainloop()
+#test liaison
